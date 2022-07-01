@@ -101,8 +101,31 @@ annotate EmployeeMaster with @(UI : {
         $Type          : 'UI.HeaderInfoType',
         TypeName       : 'Employee Master',
         TypeNamePlural : 'Employee Master',
+        Title:{
+            $Type: 'UI.DataField',
+            Value: employeeCode
+        }
     }
 });
+
+annotate EmployeeMaster with @title : 'Employee Master Data' {
+    employeeCode          @title    : 'Employee Code';
+    firstName             @title    : 'First Name';
+    lastname              @title    : 'Last Name';
+    age                   @title    : 'Employee Age';
+    Email                 @title    : 'Email Address';
+    mobile                @title    : 'Mobile Number';
+    gender                @title    : 'Gender';
+    dateOfBirth           @title    : 'Date Of Birth';
+    nationality           @title    : 'Nationality';
+    employeeType          @title    : 'Employee Type';
+    employeeActive        @title    : 'Employee Active';
+    marriedStatus         @title    : 'Marital Status';
+    departmentCode        @title    : 'Department Code';
+    departmentDescription @title    : 'Department Description';
+    departmentName        @title    : 'Department Name'  @description : 'Name of the department';
+};
+
 
 entity EmployeeEduction : cuid, managed {
     EducationID    : String(10);
