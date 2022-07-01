@@ -5,19 +5,13 @@ POST http://localhost:4004/browse/EmployeeMaster
 Content-Type: application/json
 
 {
-    "employeeName"        : "Sathis",
-    "employeeAge"         : 29,
-    "employeeDateOfBirth" : "1992-03-16",
-    "nationality"         : "Indian",
-    "employeeHireDate"    : "2021-01-01",
-    "fullTime"            : true,
-    "marriedStatus"       : "Married",
-    "employeeExperience"  : [{
-        "organizationName"   : "Infosys",
-        "relevantExperience" : 5,
-        "branchCode"         : "Test",
-        "location"           : "Test"
-    }]
+    "firstName"        : "Emp Code Test",
+    "age"              : 29,
+    "dateOfBirth"      : "1992-03-16",
+    "nationality"      : "Indian",
+    "employeeType"     : "P",
+    "marriedStatus"    : "S",
+    "gender"           : "M"
 }
 
 ###

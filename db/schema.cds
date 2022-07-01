@@ -9,7 +9,7 @@ using {
 
 
 entity EmployeeMaster : cuid, managed {
-    employeeCode          : String(10);
+    employeeCode          : String(20);
     firstName             : String(40);
     lastname              : String(40);
     age                   : Integer;
@@ -44,7 +44,11 @@ annotate EmployeeMaster with @(UI : {
         employeeType,
         departmentCode,
         employeeActive,
-        marriedStatus
+        marriedStatus,
+        gender,
+        Email,
+        dateOfBirth,
+        mobile
     ],
     LineItem        : [
         {Value : employeeCode},
