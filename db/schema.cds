@@ -34,7 +34,75 @@ entity EmployeeMaster : cuid, managed {
                                 on employeeLeaves.employeeMaster = $self;
     employeeAssets        : Composition of many Assets
                                 on employeeAssets.employeeMaster = $self;
-}
+};
+
+annotate EmployeeMaster with @(UI : {
+    SelectionFields : [
+        employeeCode,
+        firstName,
+        lastname,
+        employeeType,
+        departmentCode,
+        employeeActive,
+        marriedStatus
+    ],
+    LineItem        : [
+        {
+            Value : employeeCode,
+            Label : 'Employee Code'
+        },
+        {
+            Value : firstName,
+            Label : 'First Name'
+        },
+        {
+            Value : lastname,
+            Label : 'Last Name'
+        },
+        {
+            Value : age,
+            Label : 'Age'
+        },
+        {
+            Value : gender,
+            Label : 'Gender'
+        },
+        {
+            Value : dateOfBirth,
+            Label : 'Date of Birth'
+        },
+        {
+            Value : Email,
+            Label : 'Email'
+        },
+        {
+            Value : mobile,
+            Label : 'Mobile No'
+        },
+        {
+            Value : employeeType,
+            Label : 'Employee Type'
+        },
+        {
+            Value : employeeActive,
+            Label : 'Active'
+        },
+        {
+            Value : marriedStatus,
+            Label : 'Marital status'
+        },
+        {
+            Value : departmentCode,
+            Label : 'Department Code'
+        }
+    ],
+
+    HeaderInfo      : {
+        $Type          : 'UI.HeaderInfoType',
+        TypeName       : 'Employee Master',
+        TypeNamePlural : 'Employee Master',
+    }
+});
 
 entity EmployeeEduction : cuid, managed {
     EducationID    : String(10);
@@ -46,7 +114,7 @@ entity EmployeeEduction : cuid, managed {
     location       : String;
     markScored     : String(10);
     employeeMaster : Association to one EmployeeMaster;
-}
+};
 
 entity EmployeeExperience : cuid, managed {
     organizationName   : String;
