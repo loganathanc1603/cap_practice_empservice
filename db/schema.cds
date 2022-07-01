@@ -47,63 +47,27 @@ annotate EmployeeMaster with @(UI : {
         marriedStatus
     ],
     LineItem        : [
-        {
-            Value : employeeCode,
-            Label : 'Employee Code'
-        },
-        {
-            Value : firstName,
-            Label : 'First Name'
-        },
-        {
-            Value : lastname,
-            Label : 'Last Name'
-        },
-        {
-            Value : age,
-            Label : 'Age'
-        },
-        {
-            Value : gender,
-            Label : 'Gender'
-        },
-        {
-            Value : dateOfBirth,
-            Label : 'Date of Birth'
-        },
-        {
-            Value : Email,
-            Label : 'Email'
-        },
-        {
-            Value : mobile,
-            Label : 'Mobile No'
-        },
-        {
-            Value : employeeType,
-            Label : 'Employee Type'
-        },
-        {
-            Value : employeeActive,
-            Label : 'Active'
-        },
-        {
-            Value : marriedStatus,
-            Label : 'Marital status'
-        },
-        {
-            Value : departmentCode,
-            Label : 'Department Code'
-        }
+        {Value : employeeCode},
+        {Value : firstName},
+        {Value : lastname},
+        {Value : age},
+        {Value : gender},
+        {Value : dateOfBirth},
+        {Value : Email},
+        {Value : mobile},
+        {Value : employeeType},
+        {Value : employeeActive},
+        {Value : marriedStatus},
+        {Value : departmentCode}
     ],
 
     HeaderInfo      : {
         $Type          : 'UI.HeaderInfoType',
         TypeName       : 'Employee Master',
         TypeNamePlural : 'Employee Master',
-        Title:{
-            $Type: 'UI.DataField',
-            Value: employeeCode
+        Title          : {
+            $Type : 'UI.DataField',
+            Value : employeeCode
         }
     }
 });
