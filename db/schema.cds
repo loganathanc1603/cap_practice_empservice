@@ -14,14 +14,14 @@ entity EmployeeMaster : cuid, managed {
     firstName             : String(40);
     lastname              : String(40);
     age                   : Integer;
-    gender                : Association to Gender;
+    gender                : String(10); //Association to Gender;
     dateOfBirth           : Date;
     nationality           : String;
     Email                 : String;
     mobile                : String(15);
-    employeeType          : Association to EmployeeType;
+    employeeType          : String(30); //Association to EmployeeType;
     employeeActive        : Boolean;
-    marriedStatus         : Association to MarriedStatus;
+    marriedStatus         : String(40); //Association to MarriedStatus;
     departmentCode        : String(40);
     departmentName        : String(40);
     departmentDescription : String(100);
@@ -42,11 +42,11 @@ annotate EmployeeMaster with @(UI : {
         employeeCode,
         firstName,
         lastname,
-        employeeType_code,
+        employeeType,
         departmentCode,
         employeeActive,
-        marriedStatus_code,
-        gender_code,
+        marriedStatus,
+        gender,
         Email,
         dateOfBirth,
         mobile
@@ -56,22 +56,13 @@ annotate EmployeeMaster with @(UI : {
         {Value : firstName},
         {Value : lastname},
         {Value : age},
-        {
-            $Type : 'UI.DataField',
-            Value : gender_code
-        },
+        {Value : gender},
         {Value : dateOfBirth},
         {Value : Email},
         {Value : mobile},
-        {
-            $Type : 'UI.DataField',
-            Value : employeeType_code
-        },
+        {Value : employeeType},
         {Value : employeeActive},
-        {
-            $Type : 'UI.DataField',
-            Value : marriedStatus_code
-        },
+        {Value : marriedStatus},
         {Value : departmentCode},
         {Value : createdAt}
     ],
@@ -82,7 +73,7 @@ annotate EmployeeMaster with @(UI : {
         TypeNamePlural : 'Employee Master',
         Title          : {
             $Type : 'UI.DataField',
-            Value : employeeCode
+            Value : firstName
         }
     }
 });
@@ -102,7 +93,7 @@ annotate EmployeeMaster with @title : 'Employee Master Data' {
     marriedStatus         @title    : 'Marital Status';
     departmentCode        @title    : 'Department Code';
     departmentDescription @title    : 'Department Description';
-    departmentName        @title    : 'Department Name'  @description : 'Name of the department';
+    departmentName        @title    : 'Department Name';
 };
 
 
