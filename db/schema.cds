@@ -4,7 +4,8 @@ using {
     Country,
     Currency,
     cuid,
-    managed
+    managed,
+    sap.common.CodeList
 } from '@sap/cds/common';
 
 
@@ -13,15 +14,15 @@ entity EmployeeMaster : cuid, managed {
     firstName             : String(40);
     lastname              : String(40);
     age                   : Integer;
-    gender                : String(10);
+    gender                : Association to Gender;
     dateOfBirth           : Date;
     nationality           : String;
     Email                 : String;
     mobile                : String(15);
-    employeeType          : String(15);
+    employeeType          : Association to EmployeeType;
     employeeActive        : Boolean;
-    marriedStatus         : String;
-    departmentCode        : String(10);
+    marriedStatus         : Association to MarriedStatus;
+    departmentCode        : String(40);
     departmentName        : String(40);
     departmentDescription : String(100);
     employeeExperience    : Composition of many EmployeeExperience
@@ -41,11 +42,11 @@ annotate EmployeeMaster with @(UI : {
         employeeCode,
         firstName,
         lastname,
-        employeeType,
+        employeeType_code,
         departmentCode,
         employeeActive,
-        marriedStatus,
-        gender,
+        marriedStatus_code,
+        gender_code,
         Email,
         dateOfBirth,
         mobile
@@ -55,14 +56,24 @@ annotate EmployeeMaster with @(UI : {
         {Value : firstName},
         {Value : lastname},
         {Value : age},
-        {Value : gender},
+        {
+            $Type : 'UI.DataField',
+            Value : gender_code
+        },
         {Value : dateOfBirth},
         {Value : Email},
         {Value : mobile},
-        {Value : employeeType},
+        {
+            $Type : 'UI.DataField',
+            Value : employeeType_code
+        },
         {Value : employeeActive},
-        {Value : marriedStatus},
-        {Value : departmentCode}
+        {
+            $Type : 'UI.DataField',
+            Value : marriedStatus_code
+        },
+        {Value : departmentCode},
+        {Value : createdAt}
     ],
 
     HeaderInfo      : {
@@ -157,4 +168,27 @@ entity Assets : cuid, managed {
     purchaseDate     : Date;
     purchaseTime     : Time;
     employeeMaster   : Association to one EmployeeMaster;
+}
+
+entity MarriedStatus : CodeList {
+    key code : String enum {
+            Married = 'M';
+            Single  = 'S';
+        };
+}
+
+
+entity EmployeeType : CodeList {
+    key code : String enum {
+            Permanent = 'P';
+            Contract  = 'C';
+        };
+}
+
+entity Gender : CodeList {
+    key code : String enum {
+            Male   = 'M';
+            Female = 'F';
+        };
+
 }
