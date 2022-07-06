@@ -10,8 +10,16 @@ Content-Type: application/json
     "dateOfBirth"      : "1992-03-16",
     "nationality"      : "Indian",
     "employeeType"     : "P",
-    "marriedStatus"    : "S",
-    "gender"           : "M"
+    "marriedStatus"    : "S"
+}
+
+###
+POST http://localhost:4004/browse/GenderVH
+Content-Type: application/json
+
+{
+    "ID" : "F",
+    "genderText" : "Female"
 }
 
 ###

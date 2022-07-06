@@ -14,7 +14,7 @@ entity EmployeeMaster : cuid, managed {
     firstName             : String(40);
     lastname              : String(40);
     age                   : Integer;
-    gender                : String(10); //Association to Gender;
+    gender                : String(1); //Association to GenderVH;
     dateOfBirth           : Date;
     nationality           : String;
     Email                 : String;
@@ -35,65 +35,6 @@ entity EmployeeMaster : cuid, managed {
                                 on employeeLeaves.employeeMaster = $self;
     employeeAssets        : Composition of many Assets
                                 on employeeAssets.employeeMaster = $self;
-};
-
-annotate EmployeeMaster with @(UI : {
-    SelectionFields : [
-        employeeCode,
-        firstName,
-        lastname,
-        employeeType,
-        departmentCode,
-        employeeActive,
-        marriedStatus,
-        gender,
-        Email,
-        dateOfBirth,
-        mobile
-    ],
-    LineItem        : [
-        {Value : employeeCode},
-        {Value : firstName},
-        {Value : lastname},
-        {Value : age},
-        {Value : gender},
-        {Value : dateOfBirth},
-        {Value : Email},
-        {Value : mobile},
-        {Value : employeeType},
-        {Value : employeeActive},
-        {Value : marriedStatus},
-        {Value : departmentCode},
-        {Value : createdAt}
-    ],
-
-    HeaderInfo      : {
-        $Type          : 'UI.HeaderInfoType',
-        TypeName       : 'Employee Master',
-        TypeNamePlural : 'Employee Master',
-        Title          : {
-            $Type : 'UI.DataField',
-            Value : firstName
-        }
-    }
-});
-
-annotate EmployeeMaster with @title : 'Employee Master Data' {
-    employeeCode          @title    : 'Employee Code';
-    firstName             @title    : 'First Name';
-    lastname              @title    : 'Last Name';
-    age                   @title    : 'Employee Age';
-    Email                 @title    : 'Email Address';
-    mobile                @title    : 'Mobile Number';
-    gender                @title    : 'Gender';
-    dateOfBirth           @title    : 'Date Of Birth';
-    nationality           @title    : 'Nationality';
-    employeeType          @title    : 'Employee Type';
-    employeeActive        @title    : 'Employee Active';
-    marriedStatus         @title    : 'Marital Status';
-    departmentCode        @title    : 'Department Code';
-    departmentDescription @title    : 'Department Description';
-    departmentName        @title    : 'Department Name';
 };
 
 
@@ -176,10 +117,8 @@ entity EmployeeType : CodeList {
         };
 }
 
-entity Gender : CodeList {
-    key code : String enum {
-            Male   = 'M';
-            Female = 'F';
-        };
+entity GenderVH {
+    key ID         : String(1);
+        genderText : String;
 
 }
