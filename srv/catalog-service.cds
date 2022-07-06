@@ -38,8 +38,11 @@ service EmployeeService @(path : 'browse') {
             *
         };
 
-
     annotate EmployeeMaster with @(
+        Capabilities.Deletable,
+        Capabilities.Insertable,
+        Capabilities.Updatable,
+        fiori.draft.enabled,
         title : 'Employee master entity',
         UI    : {
             LineItem        : [

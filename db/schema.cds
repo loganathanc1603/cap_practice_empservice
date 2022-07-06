@@ -14,7 +14,7 @@ entity EmployeeMaster : cuid, managed {
     firstName             : String(40);
     lastname              : String(40);
     age                   : Integer;
-    gender                : String(1); //Association to GenderVH;
+    gender                : String(10); //Association to GenderVH;
     dateOfBirth           : Date;
     nationality           : String;
     Email                 : String;
