@@ -1,90 +1,129 @@
-_schema-version: "3.1"
+_schema-version: '3.1'
 ID: mycapservice
 description: A simple CAP project.
 version: 1.0.0
 modules:
-- name: mycapservice-srv
-  type: nodejs
-  path: gen/srv
-  requires:
-  - name: mycappservice-db
-  provides:
-  - name: srv-api
-    properties:
-      srv-url: ${default-url}
-  parameters:
-    buildpack: nodejs_buildpack
-  build-parameters:
-    builder: npm-ci
-- name: mycappservice-db-deployer
-  type: hdb
-  path: gen/db
-  requires:
-  - name: mycappservice-db
-  parameters:
-    buildpack: nodejs_buildpack
-- name: mycapservice-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: mycapservice-repo-host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
+  - name: mycapservice-srv
+    type: nodejs
+    path: gen/srv
     requires:
-    - artifacts:
-      - comempmaster.zip
-      name: comempmaster
-      target-path: resources/
-- name: comempmaster
-  type: html5
-  path: app/emp_master
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-resources:
-- name: mycappservice-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    service: hana
-    service-plan: hdi-shared
-  properties:
-    hdi-service-name: ${service-name}
-- name: mycapservice-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: mycapservice-html5-srv
-    service-plan: app-host
-- name: mycapservice-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: false
-      init_data:
+      - name: mycappservice-db
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: '${default-url}'
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+  - name: mycappservice-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: mycappservice-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: mycapservice-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: mycapservice-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - comempmaster.zip
+          name: comempmaster
+          target-path: resources/
+  - name: comempmaster
+    type: html5
+    path: app/emp_master
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - 'npm run build:cf'
+      supported-platforms: []
+  - name: mycapservice-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: mycapservice-destination-service
+        parameters:
+          content-target: true
+      - name: mycapservice-repo-host
+        parameters:
+          service-key:
+            name: mycapservice-repo-host-key
+      - name: mycapservice-uaa
+        parameters:
+          service-key:
+            name: mycapservice-uaa-key
+      - name: srv-api
+    parameters:
+      content:
         instance:
           destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
+            - Name: mycapservice_html_repo_host
+              ServiceInstanceName: mycapservice-html5-srv
+              ServiceKeyName: mycapservice-repo-host-key
+              sap.cloud.service: mycapservice
+            - Authentication: OAuth2UserTokenExchange
+              Name: mycapservice_uaa
+              ServiceInstanceName: mycapservice-xsuaa-srv
+              ServiceKeyName: mycapservice-uaa-key
+              sap.cloud.service: mycapservice
           existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: mycapservice-destination-service
-    service-plan: lite
+    build-parameters:
+      no-source: true
+resources:
+  - name: mycappservice-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: '${service-name}'
+  - name: mycapservice-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: mycapservice-html5-srv
+      service-plan: app-host
+  - name: mycapservice-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: 'https://ui5.sap.com'
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: mycapservice-destination-service
+      service-plan: lite
+  - name: mycapservice-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:      
+      service: xsuaa
+      service-name: mycapservice-xsuaa-srv
+      service-plan: application
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-  - builder: custom
-    commands:
-    - npm ci
-    - npx -p @sap/cds-dk cds build --production
+    - builder: custom
+      commands:
+        - npm install --production
+        - npm ci
+        - npx -p @sap/cds-dk cds build --production
+        - npx rimraf gen/db/src/gen/data
