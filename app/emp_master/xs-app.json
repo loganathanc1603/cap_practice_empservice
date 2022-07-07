@@ -5,7 +5,7 @@
     {
       "source": "^/browse/(.*)$",
       "target": "/browse/$1",
-      "destination": "mycapservice-srv-api",
+      "destination": "capm_destination",
       "authenticationType": "none",
       "csrfProtection": false
     },
