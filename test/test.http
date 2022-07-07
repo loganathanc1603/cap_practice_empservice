@@ -5,12 +5,41 @@ POST http://localhost:4004/browse/EmployeeMaster
 Content-Type: application/json
 
 {
-    "firstName"        : "Emp Code Test",
-    "age"              : 29,
-    "dateOfBirth"      : "1992-03-16",
-    "nationality"      : "Indian",
-    "employeeType"     : "P",
-    "marriedStatus"    : "S"
+    "firstName": "Sathis Kumar",
+    "lastname": "M",
+    "age": 31,
+    "gender": "M",
+    "dateOfBirth": "1992-03-16",
+    "nationality": "Indian",
+    "Email": "sathi@cap.com",
+    "mobile": "+9198653456789",
+    "employeeType": "P",
+    "employeeActive": true,
+    "marriedStatus": "S",
+    "departmentCode": "FULLSTACK",
+    "departmentName": "Full Stack Development",
+    "departmentDescription": "SAP FIOIR & UI5 Development"
+}
+
+###
+POST http://localhost:4004/browse/EmployeeMaster
+Content-Type: application/json
+
+{
+    "firstName": "Loganatan",
+    "lastname": "Chinnasamy",
+    "age": 28,
+    "gender": "M",
+    "dateOfBirth": "1994-03-16",
+    "nationality": "Indian",
+    "Email": "logan@cap.com",
+    "mobile": "+9198653456789",
+    "employeeType": "P",
+    "employeeActive": true,
+    "marriedStatus": "S",
+    "departmentCode": "FULLSTACK",
+    "departmentName": "Full Stack Development",
+    "departmentDescription": "SAP FIOIR & UI5 Development"
 }
 
 ###
@@ -18,8 +47,8 @@ POST http://localhost:4004/browse/GenderVH
 Content-Type: application/json
 
 {
-    "ID" : "F",
-    "genderText" : "Female"
+    "ID" : "M",
+    "genderText" : "Male"
 }
 
 ###

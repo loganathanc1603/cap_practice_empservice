@@ -1,0 +1,184 @@
+{
+    "_version": "1.40.0",
+    "sap.app": {
+        "id": "com.empmaster",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap-ux/fiori-elements-writer:lrop",
+            "version": "0.3.6",
+            "toolsId": "77a4f90b-81ed-4d1c-b2a2-f45dfbfaed03"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/browse/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-empmaster-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "EmployeeMasterApp",
+                    "action": "Display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.102.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.empmaster.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "EmployeeMasterList",
+                    "target": "EmployeeMasterList"
+                },
+                {
+                    "pattern": "EmployeeMaster({key}):?query:",
+                    "name": "EmployeeMasterObjectPage",
+                    "target": "EmployeeMasterObjectPage"
+                },
+                {
+                    "pattern": "EmployeeMaster({key})/employeeExperience({key2}):?query:",
+                    "name": "EmployeeExperienceObjectPage",
+                    "target": "EmployeeExperienceObjectPage"
+                }
+            ],
+            "targets": {
+                "EmployeeMasterList": {
+                    "type": "Component",
+                    "id": "EmployeeMasterList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "EmployeeMaster",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "EmployeeMaster": {
+                                    "detail": {
+                                        "route": "EmployeeMasterObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "EmployeeMasterObjectPage": {
+                    "type": "Component",
+                    "id": "EmployeeMasterObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "EmployeeMaster",
+                            "navigation": {
+                                "employeeExperience": {
+                                    "detail": {
+                                        "route": "EmployeeExperienceObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "EmployeeExperienceObjectPage": {
+                    "type": "Component",
+                    "id": "EmployeeExperienceObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "EmployeeExperience"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

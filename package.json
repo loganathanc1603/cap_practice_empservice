@@ -15,7 +15,8 @@
         "sqlite3": "^5.0.2"
     },
     "scripts": {
-        "start": "cds run"
+        "start": "cds run",
+        "undeploy": "cf undeploy mycapservice --delete-services --delete-service-keys"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",

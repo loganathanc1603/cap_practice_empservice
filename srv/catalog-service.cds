@@ -45,7 +45,7 @@ service EmployeeService @(path : 'browse') {
         fiori.draft.enabled,
         title : 'Employee master entity',
         UI    : {
-            LineItem        : [
+            LineItem                   : [
                 {Value : employeeActive},
                 {Value : firstName},
                 {Value : lastname},
@@ -60,7 +60,7 @@ service EmployeeService @(path : 'browse') {
                 {Value : departmentCode},
                 {Value : createdAt}
             ],
-            SelectionFields : [
+            SelectionFields            : [
                 employeeCode,
                 firstName,
                 lastname,
@@ -73,16 +73,180 @@ service EmployeeService @(path : 'browse') {
                 dateOfBirth,
                 mobile
             ],
-            HeaderInfo      : {
+            HeaderInfo                 : {
                 $Type          : 'UI.HeaderInfoType',
                 TypeName       : 'Employee Master',
                 TypeNamePlural : 'Employee Master',
                 Title          : {
                     $Type : 'UI.DataField',
                     Value : firstName
+                },
+                Description: {
+                    $Type : 'UI.DataField',
+                    Value : employeeCode
                 }
+            },
+
+            HeaderFacets               : [
+                {
+                    $Type  : 'UI.ReferenceFacet',
+                    Label  : 'Date Of Birth',
+                    ID     : 'DOB',
+                    Target : '@UI.DataPoint#DateOfBirth'
+                },
+                {
+                    $Type  : 'UI.ReferenceFacet',
+                    ID     : 'AGE',
+                    Target : '@UI.DataPoint#AgeProgress'
+                },
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID : 'EMP_TYPE',
+                    Target : '@UI.DataPoint#EmployeeType'
+                }
+            ],
+
+            DataPoint #DateOfBirth     : {
+                $Type : 'UI.DataPointType',
+                Value : dateOfBirth,
+                Title : 'Date Of Birth'
+            },
+
+            DataPoint #AgeProgress     : {
+                Title         : 'Employee Age Info',
+                Description   : 'Years',
+                Value         : age,
+                TargetValue   : 100,
+                Criticality   : #Neutral,
+                Visualization : #Progress
+            },
+
+            DataPoint #EmployeeType : {
+                Value : employeeType,
+                Title : 'Employment Type',
+                Criticality : #Positive
+            },
+
+            Facets                     : [{
+                $Type  : 'UI.CollectionFacet',
+                Label  : 'Basic Information',
+                ID     : 'BASICDATA',
+                Facets : [
+                    {
+                        $Type  : 'UI.ReferenceFacet',
+                        Target : '@UI.FieldGroup#GeneralData',
+                        Label  : 'General Data',
+                        ID     : 'GENERAL_DATA',
+                    },
+                    {
+                        $Type  : 'UI.ReferenceFacet',
+                        Target : '@UI.FieldGroup#DepartmentData',
+                        Label  : 'Department Data',
+                        ID     : 'DEPARTMENT_DATA',
+                    },
+                    {
+                        $Type  : 'UI.ReferenceFacet',
+                        Target : '@UI.FieldGroup#AdminData',
+                        Label  : 'Admin Data',
+                        ID     : 'ADMIN_DATA',
+                    }
+                ],
+            }],
+            FieldGroup #GeneralData    : {
+                $Type : 'UI.FieldGroupType',
+                Data  : [
+                    {
+                        $Type : 'UI.DataField',
+                        Value : employeeCode
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : firstName
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : lastname
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : age
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : gender
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : mobile
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : Email
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : dateOfBirth
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : employeeType
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : employeeActive
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : marriedStatus
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : nationality
+                    }
+                ]
+            },
+
+            FieldGroup #DepartmentData : {
+                $Type : 'UI.FieldGroupType',
+                Data  : [
+                    {
+                        $Type : 'UI.DataField',
+                        Value : departmentCode
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : departmentDescription
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : departmentName
+                    }
+                ]
+            },
+
+            FieldGroup #AdminData      : {
+                $Type : 'UI.FieldGroupType',
+                Data  : [
+                    {
+                        $Type : 'UI.DataField',
+                        Value : createdAt
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : createdBy
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : modifiedAt
+                    },
+                    {
+                        $Type : 'UI.DataField',
+                        Value : modifiedBy
+                    }
+                ]
             }
         }
+
     ) {
         employeeCode          @(title : 'Employee Code');
         firstName             @(title : 'First Name');

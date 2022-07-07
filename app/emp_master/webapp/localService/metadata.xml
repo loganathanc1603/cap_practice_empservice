@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="EmployeeService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="EmployeeMaster" EntityType="EmployeeService.EmployeeMaster">
+                    <NavigationPropertyBinding Path="employeeExperience" Target="EmployeeExperience"/>
+                    <NavigationPropertyBinding Path="employeeEducation" Target="EmployeeEduction"/>
+                    <NavigationPropertyBinding Path="employeeAddress" Target="EmployeeAddress"/>
+                    <NavigationPropertyBinding Path="employeeLeaves" Target="EmployeeLeaves"/>
+                    <NavigationPropertyBinding Path="employeeAssets" Target="Assets"/>
+                </EntitySet>
+                <EntitySet Name="EmployeeExperience" EntityType="EmployeeService.EmployeeExperience">
+                    <NavigationPropertyBinding Path="currency" Target="Currencies"/>
+                    <NavigationPropertyBinding Path="employeeMaster" Target="EmployeeMaster"/>
+                </EntitySet>
+                <EntitySet Name="EmployeeEduction" EntityType="EmployeeService.EmployeeEduction">
+                    <NavigationPropertyBinding Path="employeeMaster" Target="EmployeeMaster"/>
+                </EntitySet>
+                <EntitySet Name="EmployeeAddress" EntityType="EmployeeService.EmployeeAddress">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                    <NavigationPropertyBinding Path="employeeMaster" Target="EmployeeMaster"/>
+                </EntitySet>
+                <EntitySet Name="EmployeeLeaves" EntityType="EmployeeService.EmployeeLeaves">
+                    <NavigationPropertyBinding Path="employeeMaster" Target="EmployeeMaster"/>
+                </EntitySet>
+                <EntitySet Name="Assets" EntityType="EmployeeService.Assets">
+                    <NavigationPropertyBinding Path="employeeMaster" Target="EmployeeMaster"/>
+                </EntitySet>
+                <EntitySet Name="GenderVH" EntityType="EmployeeService.GenderVH"/>
+                <EntitySet Name="Currencies" EntityType="EmployeeService.Currencies">
+                    <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+                </EntitySet>
+                <EntitySet Name="Countries" EntityType="EmployeeService.Countries">
+                    <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+                </EntitySet>
+                <EntitySet Name="Currencies_texts" EntityType="EmployeeService.Currencies_texts"/>
+                <EntitySet Name="Countries_texts" EntityType="EmployeeService.Countries_texts"/>
+            </EntityContainer>
+            <EntityType Name="EmployeeMaster">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="employeeCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="firstName" Type="Edm.String" MaxLength="40"/>
+                <Property Name="lastname" Type="Edm.String" MaxLength="40"/>
+                <Property Name="age" Type="Edm.Int32"/>
+                <Property Name="gender" Type="Edm.String" MaxLength="10"/>
+                <Property Name="dateOfBirth" Type="Edm.Date"/>
+                <Property Name="nationality" Type="Edm.String"/>
+                <Property Name="Email" Type="Edm.String"/>
+                <Property Name="mobile" Type="Edm.String" MaxLength="15"/>
+                <Property Name="employeeType" Type="Edm.String" MaxLength="30"/>
+                <Property Name="employeeActive" Type="Edm.Boolean"/>
+                <Property Name="marriedStatus" Type="Edm.String" MaxLength="40"/>
+                <Property Name="departmentCode" Type="Edm.String" MaxLength="40"/>
+                <Property Name="departmentName" Type="Edm.String" MaxLength="40"/>
+                <Property Name="departmentDescription" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="employeeExperience" Type="Collection(EmployeeService.EmployeeExperience)" Partner="employeeMaster">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="employeeEducation" Type="Collection(EmployeeService.EmployeeEduction)" Partner="employeeMaster">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="employeeAddress" Type="Collection(EmployeeService.EmployeeAddress)" Partner="employeeMaster">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="employeeLeaves" Type="Collection(EmployeeService.EmployeeLeaves)" Partner="employeeMaster">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="employeeAssets" Type="Collection(EmployeeService.Assets)" Partner="employeeMaster">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="gender_Text" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="EmployeeExperience">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="organizationName" Type="Edm.String"/>
+                <Property Name="totalExperience" Type="Edm.Int32"/>
+                <Property Name="destination" Type="Edm.String"/>
+                <Property Name="skillSet" Type="Edm.String"/>
+                <Property Name="relevantExperience" Type="Edm.Int32"/>
+                <Property Name="startDate" Type="Edm.Date"/>
+                <Property Name="endDate" Type="Edm.Date"/>
+                <Property Name="salary" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <NavigationProperty Name="currency" Type="EmployeeService.Currencies">
+                    <ReferentialConstraint Property="currency_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="currency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="branchCode" Type="Edm.String"/>
+                <Property Name="location" Type="Edm.String"/>
+                <NavigationProperty Name="employeeMaster" Type="EmployeeService.EmployeeMaster" Partner="employeeExperience">
+                    <ReferentialConstraint Property="employeeMaster_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="employeeMaster_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="EmployeeEduction">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="EducationID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="instituteName" Type="Edm.String"/>
+                <Property Name="courseName" Type="Edm.String"/>
+                <Property Name="courseType" Type="Edm.String"/>
+                <Property Name="startDate" Type="Edm.Date"/>
+                <Property Name="endDate" Type="Edm.Date"/>
+                <Property Name="location" Type="Edm.String"/>
+                <Property Name="markScored" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="employeeMaster" Type="EmployeeService.EmployeeMaster" Partner="employeeEducation">
+                    <ReferentialConstraint Property="employeeMaster_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="employeeMaster_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="EmployeeAddress">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="doorNo" Type="Edm.String" MaxLength="5"/>
+                <Property Name="streetName" Type="Edm.String"/>
+                <Property Name="city" Type="Edm.String"/>
+                <Property Name="state" Type="Edm.String"/>
+                <NavigationProperty Name="country" Type="EmployeeService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="postalCode" Type="Edm.Int32"/>
+                <Property Name="isPremanentAddress" Type="Edm.Boolean"/>
+                <Property Name="isCurrentAddress" Type="Edm.Boolean"/>
+                <NavigationProperty Name="employeeMaster" Type="EmployeeService.EmployeeMaster" Partner="employeeAddress">
+                    <ReferentialConstraint Property="employeeMaster_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="employeeMaster_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="EmployeeLeaves">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="startDate" Type="Edm.Date"/>
+                <Property Name="endDate" Type="Edm.Date"/>
+                <Property Name="leaveType" Type="Edm.String"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="remark" Type="Edm.String"/>
+                <NavigationProperty Name="employeeMaster" Type="EmployeeService.EmployeeMaster" Partner="employeeLeaves">
+                    <ReferentialConstraint Property="employeeMaster_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="employeeMaster_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Assets">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="assetCode" Type="Edm.String" MaxLength="10"/>
+                <Property Name="assetName" Type="Edm.String"/>
+                <Property Name="assetDescription" Type="Edm.String"/>
+                <Property Name="assetType" Type="Edm.String"/>
+                <Property Name="purchaseDate" Type="Edm.Date"/>
+                <Property Name="purchaseTime" Type="Edm.TimeOfDay"/>
+                <NavigationProperty Name="employeeMaster" Type="EmployeeService.EmployeeMaster" Partner="employeeAssets">
+                    <ReferentialConstraint Property="employeeMaster_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="employeeMaster_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="GenderVH">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" MaxLength="1" Nullable="false"/>
+                <Property Name="genderText" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <NavigationProperty Name="texts" Type="Collection(EmployeeService.Currencies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="EmployeeService.Currencies_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(EmployeeService.Countries_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="EmployeeService.Countries_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Countries_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="EmployeeService.EmployeeMaster">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="employeeActive"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="firstName"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="lastname"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="age"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="gender"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="dateOfBirth"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Email"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="mobile"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="employeeType"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="employeeActive"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="marriedStatus"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="departmentCode"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>employeeCode</PropertyPath>
+                        <PropertyPath>firstName</PropertyPath>
+                        <PropertyPath>lastname</PropertyPath>
+                        <PropertyPath>employeeType</PropertyPath>
+                        <PropertyPath>departmentCode</PropertyPath>
+                        <PropertyPath>employeeActive</PropertyPath>
+                        <PropertyPath>marriedStatus</PropertyPath>
+                        <PropertyPath>gender</PropertyPath>
+                        <PropertyPath>Email</PropertyPath>
+                        <PropertyPath>dateOfBirth</PropertyPath>
+                        <PropertyPath>mobile</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Employee Master"/>
+                        <PropertyValue Property="TypeNamePlural" String="Employee Master"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="firstName"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Employee master entity"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EntityContainer/EmployeeMaster">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/employeeCode">
+                <Annotation Term="Common.Label" String="Employee Code"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/firstName">
+                <Annotation Term="Common.Label" String="First Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/lastname">
+                <Annotation Term="Common.Label" String="Last Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/age">
+                <Annotation Term="Common.Label" String="Age"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/gender">
+                <Annotation Term="Common.Label" String="Gender"/>
+                <Annotation Term="Common.Text" Path="gender_Text">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Gender Value Help"/>
+                        <PropertyValue Property="CollectionPath" String="GenderVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="gender"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="genderText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/dateOfBirth">
+                <Annotation Term="Common.Label" String="Date Of Birth"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/nationality">
+                <Annotation Term="Common.Label" String="Nationality"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/Email">
+                <Annotation Term="Common.Label" String="Email"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/mobile">
+                <Annotation Term="Common.Label" String="Mobile No"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/employeeType">
+                <Annotation Term="Common.Label" String="Employee Type"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/employeeActive">
+                <Annotation Term="Common.Label" String="Employee Active"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/marriedStatus">
+                <Annotation Term="Common.Label" String="Marital Status"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/departmentCode">
+                <Annotation Term="Common.Label" String="Department Code"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/departmentName">
+                <Annotation Term="Common.Label" String="Department Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/departmentDescription">
+                <Annotation Term="Common.Label" String="Department Description"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeMaster/gender_Text">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeExperience/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeExperience/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeExperience/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeExperience/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeExperience/currency">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeExperience/currency_code">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="currency_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeEduction/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeEduction/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeEduction/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeEduction/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeAddress/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeAddress/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeAddress/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeAddress/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeAddress/country">
+                <Annotation Term="Common.Label" String="Country"/>
+                <Annotation Term="Core.Description" String="Country code as specified by ISO 3166-1"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeAddress/country_code">
+                <Annotation Term="Common.Label" String="Country"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Country"/>
+                        <PropertyValue Property="CollectionPath" String="Countries"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Country code as specified by ISO 3166-1"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeLeaves/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeLeaves/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeLeaves/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.EmployeeLeaves/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Assets/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Assets/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Assets/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Assets/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.GenderVH">
+                <Annotation Term="Common.Label" String="Gender VH Entity"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.GenderVH/ID">
+                <Annotation Term="Common.Label" String="ID"/>
+                <Annotation Term="Common.Text" Path="genderText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextSeparate"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EmployeeService.GenderVH/genderText">
+                <Annotation Term="Common.Label" String="Gender"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Currency Code"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies/symbol">
+                <Annotation Term="Common.Label" String="Currency Symbol"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Country Code"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Currencies_texts/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Currency Code"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="EmployeeService.Countries_texts/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Country Code"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
