@@ -26,20 +26,22 @@ module.exports = cds.service.impl(async function () {
   this.after("each", "EmployeeMaster", (empData) => {
     if (empData.employeeType === "P") {
       empData.employeeType = "Permanent";
-    } else if(empData.employeeType === "C") {
+    } else if (empData.employeeType === "C") {
       empData.employeeType = "Contract";
     }
 
     if (empData.marriedStatus === "S") {
       empData.marriedStatus = "Single";
-    } else if(empData.marriedStatus === "M") {
+    } else if (empData.marriedStatus === "M") {
       empData.marriedStatus = "Married";
     }
 
     if (empData.gender === "M") {
       empData.gender_Text = "Male";
-    } else {
+    } else if(empData.gender === "F") {
       empData.gender_Text = "Female";
+    }else{
+        empData.gender_Text = "Transgender"
     }
 
     if (empData.age > 0 && empData.age < 50) {

@@ -18,7 +18,7 @@ entity EmployeeMaster : cuid, managed {
     dateOfBirth           : Date;
     nationality           : String;
     Email                 : String @mandatory;
-    mobile                : String(15) @mandatory;
+    mobile                : String @mandatory;
     employeeType          : String(30) @mandatory; //Association to EmployeeType;
     employeeActive        : Boolean;
     marriedStatus         : String(40); //Association to MarriedStatus;

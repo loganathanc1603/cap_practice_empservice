@@ -47,29 +47,29 @@ service EmployeeService @(path : 'browse') {
         //Capabilities.Deletable,
         //Capabilities.Insertable,
         //Capabilities.Updatable,
-         odata.draft.enabled,
+        //odata.draft.enabled,
         // UpdateHidden : false,
         // DeleteHidden : false,
         // CreateHidden : false,
-        title        : 'Employee master entity',
-        UI           : {
+        title : 'Employee master entity',
+        UI    : {
             LineItem                   : [
                 {Value : employeeActive},
                 {Value : firstName},
                 {Value : lastname},
-                {Value : age},
                 {
-                    Value                     : gender,
+                    Value                     : age,
                     Criticality               : Criticality_Age,
-                    CriticalityRepresentation : #WithIcon
+                    CriticalityRepresentation : #WithoutIcon
                 },
+                {Value : gender},
                 {Value : dateOfBirth},
                 {Value : Email},
                 {Value : mobile},
                 {
                     Value                     : employeeType,
                     Criticality               : Criticality_EmpType,
-                    CriticalityRepresentation : #WithIcon
+                    CriticalityRepresentation : #WithoutIcon
                 },
                 {Value : employeeActive},
                 {Value : marriedStatus},
@@ -201,7 +201,7 @@ service EmployeeService @(path : 'browse') {
                         $Type                     : 'UI.DataField',
                         Value                     : employeeType,
                         Criticality               : Criticality_EmpType,
-                        CriticalityRepresentation : #WithIcon
+                        CriticalityRepresentation : #WithoutIcon
                     },
                     {
                         $Type : 'UI.DataField',
