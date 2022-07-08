@@ -26,13 +26,13 @@ module.exports = cds.service.impl(async function () {
   this.after("each", "EmployeeMaster", (empData) => {
     if (empData.employeeType === "P") {
       empData.employeeType = "Permanent";
-    } else {
+    } else if(empData.employeeType === "C") {
       empData.employeeType = "Contract";
     }
 
     if (empData.marriedStatus === "S") {
       empData.marriedStatus = "Single";
-    } else {
+    } else if(empData.marriedStatus === "M") {
       empData.marriedStatus = "Married";
     }
 

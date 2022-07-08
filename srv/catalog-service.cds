@@ -41,14 +41,16 @@ service EmployeeService @(path : 'browse') {
             *
         };
 
+    //annotate EmployeeMaster with @odata.draft.enabled;
+
     annotate EmployeeMaster with @(
         //Capabilities.Deletable,
         //Capabilities.Insertable,
         //Capabilities.Updatable,
-        fiori.draft.enabled,
-        UpdateHidden : false,
-        DeleteHidden : false,
-        CreateHidden : false,
+         odata.draft.enabled,
+        // UpdateHidden : false,
+        // DeleteHidden : false,
+        // CreateHidden : false,
         title        : 'Employee master entity',
         UI           : {
             LineItem                   : [
@@ -59,7 +61,7 @@ service EmployeeService @(path : 'browse') {
                 {
                     Value                     : gender,
                     Criticality               : Criticality_Age,
-                    CriticalityRepresentation : #WithoutIcon
+                    CriticalityRepresentation : #WithIcon
                 },
                 {Value : dateOfBirth},
                 {Value : Email},

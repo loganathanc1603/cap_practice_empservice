@@ -10,16 +10,16 @@ using {
 
 
 entity EmployeeMaster : cuid, managed {
-    employeeCode          : String(20);
-    firstName             : String(40);
-    lastname              : String(40);
-    age                   : Integer;
+    employeeCode          : String(20) @readonly;
+    firstName             : String(40) @mandatory;
+    lastname              : String(40) @mandatory;
+    age                   : Integer @mandatory;
     gender                : String(10); //Association to GenderVH;
     dateOfBirth           : Date;
     nationality           : String;
-    Email                 : String;
-    mobile                : String(15);
-    employeeType          : String(30); //Association to EmployeeType;
+    Email                 : String @mandatory;
+    mobile                : String(15) @mandatory;
+    employeeType          : String(30) @mandatory; //Association to EmployeeType;
     employeeActive        : Boolean;
     marriedStatus         : String(40); //Association to MarriedStatus;
     departmentCode        : String(40);
