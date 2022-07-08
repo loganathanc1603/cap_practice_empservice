@@ -5,7 +5,10 @@ service EmployeeService @(path : 'browse') {
     entity EmployeeMaster     as
         select from my.EmployeeMaster {
             *,
-            null as gender_Text : String
+            null as gender_Text         : String,
+            null as Criticality_Age     : Integer,
+            null as Criticality_EmpType : Integer
+
         };
 
     entity EmployeeExperience as
@@ -39,22 +42,33 @@ service EmployeeService @(path : 'browse') {
         };
 
     annotate EmployeeMaster with @(
-        Capabilities.Deletable,
-        Capabilities.Insertable,
-        Capabilities.Updatable,
+        //Capabilities.Deletable,
+        //Capabilities.Insertable,
+        //Capabilities.Updatable,
         fiori.draft.enabled,
-        title : 'Employee master entity',
-        UI    : {
+        UpdateHidden : false,
+        DeleteHidden : false,
+        CreateHidden : false,
+        title        : 'Employee master entity',
+        UI           : {
             LineItem                   : [
                 {Value : employeeActive},
                 {Value : firstName},
                 {Value : lastname},
                 {Value : age},
-                {Value : gender},
+                {
+                    Value                     : gender,
+                    Criticality               : Criticality_Age,
+                    CriticalityRepresentation : #WithoutIcon
+                },
                 {Value : dateOfBirth},
                 {Value : Email},
                 {Value : mobile},
-                {Value : employeeType},
+                {
+                    Value                     : employeeType,
+                    Criticality               : Criticality_EmpType,
+                    CriticalityRepresentation : #WithIcon
+                },
                 {Value : employeeActive},
                 {Value : marriedStatus},
                 {Value : departmentCode},
@@ -117,14 +131,14 @@ service EmployeeService @(path : 'browse') {
                 Description   : 'Years',
                 Value         : age,
                 TargetValue   : 100,
-                Criticality   : #Information,
+                Criticality   : Criticality_Age,
                 Visualization : #Progress
             },
 
             DataPoint #EmployeeType    : {
                 Value       : employeeType,
                 Title       : 'Employment Type',
-                Criticality : #Positive
+                Criticality : Criticality_EmpType
             },
 
             Facets                     : [{
@@ -164,8 +178,10 @@ service EmployeeService @(path : 'browse') {
                         Value : lastname
                     },
                     {
-                        $Type : 'UI.DataField',
-                        Value : age
+                        $Type                     : 'UI.DataField',
+                        Value                     : age,
+                        Criticality               : Criticality_Age,
+                        CriticalityRepresentation : #WithoutIcon
                     },
                     {
                         $Type : 'UI.DataField',
@@ -180,8 +196,10 @@ service EmployeeService @(path : 'browse') {
                         Value : Email
                     },
                     {
-                        $Type : 'UI.DataField',
-                        Value : employeeType
+                        $Type                     : 'UI.DataField',
+                        Value                     : employeeType,
+                        Criticality               : Criticality_EmpType,
+                        CriticalityRepresentation : #WithIcon
                     },
                     {
                         $Type : 'UI.DataField',
@@ -283,14 +301,24 @@ service EmployeeService @(path : 'browse') {
         )
     };
 
-    annotate GenderVH with @(title : 'Gender VH Entity') {
-        ID         @(Common : {
+    annotate GenderVH with @(
+        title : 'Gender VH Entity',
+        fiori.draft.enabled,
+        Capabilities.Insertable,
+        UI    : {LineItem : [
+            {Value : ID},
+            {Value : genderText},
+        ], }
+    ) {
+
+        ID
+        @(Common : {
             Label           : 'ID',
             Text            : genderText,
             TextArrangement : #TextSeparate
         });
-        genderText @(Common : {Label : 'Gender'});
+        genderText
+
+        @(Common : {Label : 'Gender'});
     };
-
-
 }

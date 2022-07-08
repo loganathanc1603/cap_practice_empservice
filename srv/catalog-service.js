@@ -41,18 +41,30 @@ module.exports = cds.service.impl(async function () {
     } else {
       empData.gender_Text = "Female";
     }
+
+    if (empData.age > 0 && empData.age < 50) {
+      empData.Criticality_Age = 5; //Blue
+    } else {
+      empData.Criticality_Age = 3; // Green
+    }
+
+    if (empData.employeeType === "C") {
+      empData.Criticality_EmpType = 1; //Red
+    } else {
+      empData.Criticality_EmpType = 3; //Green
+    }
   });
 
-//   this.on("READ", "GenderVH", async (oData) => {
-//     return [
-//       {
-//         ID: "M",
-//         genderText: "Male",
-//       },
-//       {
-//         ID: "F",
-//         genderText: "Female",
-//       },
-//     ];
-//   });
+  //   this.on("READ", "GenderVH", async (oData) => {
+  //     return [
+  //       {
+  //         ID: "M",
+  //         genderText: "Male",
+  //       },
+  //       {
+  //         ID: "F",
+  //         genderText: "Female",
+  //       },
+  //     ];
+  //   });
 });
