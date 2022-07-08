@@ -81,7 +81,7 @@ service EmployeeService @(path : 'browse') {
                     $Type : 'UI.DataField',
                     Value : firstName
                 },
-                Description: {
+                Description    : {
                     $Type : 'UI.DataField',
                     Value : employeeCode
                 }
@@ -100,8 +100,8 @@ service EmployeeService @(path : 'browse') {
                     Target : '@UI.DataPoint#AgeProgress'
                 },
                 {
-                    $Type : 'UI.ReferenceFacet',
-                    ID : 'EMP_TYPE',
+                    $Type  : 'UI.ReferenceFacet',
+                    ID     : 'EMP_TYPE',
                     Target : '@UI.DataPoint#EmployeeType'
                 }
             ],
@@ -117,13 +117,13 @@ service EmployeeService @(path : 'browse') {
                 Description   : 'Years',
                 Value         : age,
                 TargetValue   : 100,
-                Criticality   : #Neutral,
+                Criticality   : #Information,
                 Visualization : #Progress
             },
 
-            DataPoint #EmployeeType : {
-                Value : employeeType,
-                Title : 'Employment Type',
+            DataPoint #EmployeeType    : {
+                Value       : employeeType,
+                Title       : 'Employment Type',
                 Criticality : #Positive
             },
 
@@ -157,10 +157,6 @@ service EmployeeService @(path : 'browse') {
                 Data  : [
                     {
                         $Type : 'UI.DataField',
-                        Value : employeeCode
-                    },
-                    {
-                        $Type : 'UI.DataField',
                         Value : firstName
                     },
                     {
@@ -182,10 +178,6 @@ service EmployeeService @(path : 'browse') {
                     {
                         $Type : 'UI.DataField',
                         Value : Email
-                    },
-                    {
-                        $Type : 'UI.DataField',
-                        Value : dateOfBirth
                     },
                     {
                         $Type : 'UI.DataField',
@@ -267,7 +259,7 @@ service EmployeeService @(path : 'browse') {
             Common : {
                 Label                    : 'Gender',
                 Text                     : gender_Text,
-                TextArrangement          : #TextLast,
+                TextArrangement          : #TextFirst,
                 ValueListWithFixedValues : false,
                 ValueList                : {
                     $Type           : 'Common.ValueListType',
@@ -279,7 +271,7 @@ service EmployeeService @(path : 'browse') {
                         {
                             $Type             : 'Common.ValueListParameterOut',
                             LocalDataProperty : 'gender', // Actual Entity Property Ex: EmployeeMaster M
-                            ValueListProperty : 'ID' //VH Property Ex: GenderVH M
+                            ValueListProperty : 'ID' // VH Property Ex: GenderVH M
                         },
                         {
                             $Type             : 'Common.ValueListParameterDisplayOnly',

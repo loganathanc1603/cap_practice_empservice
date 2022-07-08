@@ -40,11 +40,13 @@
             "parameters": {},
             "additionalParameters": "allowed"
           },
-          "semanticObject": "EmployeeMasterApp",
+          "semanticObject": "EmployeeMasterFioriElements",
           "action": "Display",
           "title": "{{flpTitle}}",
           "subTitle": "{{flpSubtitle}}",
-          "icon": ""
+          "icon": "sap-icon://manager",
+          "info": "{{flpInfo}}",
+          "shortTitle": "{{flpShortTitle}}"
         }
       }
     }
