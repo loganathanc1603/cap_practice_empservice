@@ -54,7 +54,7 @@ service EmployeeService @(path : 'browse') {
         title : 'Employee master entity',
         UI    : {
             LineItem                   : [
-                {Value : employeeActive},
+                {Value : employeeCode},
                 {Value : firstName},
                 {Value : lastname},
                 {
