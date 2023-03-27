@@ -44,9 +44,9 @@ service EmployeeService @(path : 'browse') {
     //annotate EmployeeMaster with @odata.draft.enabled;
 
     annotate EmployeeMaster with @(
-        //Capabilities.Deletable,
-        //Capabilities.Insertable,
-        //Capabilities.Updatable,
+        Capabilities.Deletable,
+        Capabilities.Insertable,
+        Capabilities.Updatable,
         //odata.draft.enabled,
         // UpdateHidden : false,
         // DeleteHidden : false,
