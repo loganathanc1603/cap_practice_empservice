@@ -23,3 +23,7 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+
+# Bind a Local Application to Services on Cloud Foundry
+cds bind -2 my-hana-db:my-hana-key
+cds watch --profile hybrid
